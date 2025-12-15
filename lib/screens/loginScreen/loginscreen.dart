@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myfirstapp/screens/homescreen/homescreen.dart';
+import 'package:myfirstapp/screens/spalsh/splash.dart';
 import 'package:myfirstapp/widgets/buttonwidget.dart';
 import 'package:myfirstapp/widgets/formwidget.dart';
+import 'package:myfirstapp/widgets/iconwidget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +14,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  void onPressed(){
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder:(context)=> const HomeScreen())
+  );
+  }
   @override
   Widget build(BuildContext context) {
     var screenwidth = MediaQuery.of(context).size.width;
@@ -60,13 +70,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: 'Sign in',
                         vertical: 15,
                         horizontal: 20,
+                        onPressed: onPressed
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Row(
                           children: [
                             Expanded(
-                              child: Divider(color: Colors.red, thickness: 1),
+                              child: Divider(color: Colors.grey, thickness: 1),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
@@ -78,44 +89,48 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Expanded(
-                              child: Divider(color: Colors.red, thickness: 1),
+                              child: Divider(color: Colors.grey, thickness: 1),
                             ),
                           ],
                         ),
                       ),
 
-                      Row(
-                        children: [
-                          Container(
-                            width: 30, // outer circle size
-                            height: 30,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.red,
-                                width: 2,
-                              ), // circle border
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                'icons/facebook.svg',
-                                width: 25,
-                                height: 25,
-                                fit: BoxFit.cover,
-                                colorFilter: ColorFilter.mode(
-                                  Colors.red,
-                                  BlendMode.srcIn,
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:100,right:100,bottom:20,top:20),
+                        child: Row(
+                          mainAxisAlignment:MainAxisAlignment.spaceAround,
+                          children: [
+                             Iconwidget(iconpath: "icons/facebook.svg",color:Colors.blue,colorfilter: Colors.black,),
+                             Iconwidget(iconpath: "icons/Logo_of_Twitter.svg", colorfilter:Colors.blue, color:Color.fromARGB(0, 240, 240, 240),),
+                             Iconwidget(iconpath:"icons/google.svg"),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding:EdgeInsets.all(16),
+                        child:SizedBox(
+                          child:Row(
+                            mainAxisAlignment:MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Don't have an account?",
+                                style:TextStyle(color:Colors.grey)
                               ),
-                            ),
+                              Text(
+                                'Sign up',
+                                style:TextStyle(color:Colors.lightBlue)
+                              ),
+                            ],
                           ),
-                        ],
+                        )
                       ),
                     ],
                   ),
                 ),
               ),
             ),
+
+            
           ],
         ),
       ),
