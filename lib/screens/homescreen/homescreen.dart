@@ -3,22 +3,27 @@ import 'package:flutter/material.dart';
 class Planet {
   final String imagePath;
   final String imageContent;
+  final String planetName;
 
-  Planet({required this.imagePath, required this.imageContent});
+  Planet({
+    required this.planetName,
+    required this.imagePath,
+    required this.imageContent,
+  });
 }
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  Widget card(String image, String content, BuildContext context) {
+  Widget card(Planet planet, BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
       width: width * 0.88,
-      height: height >= 812 ? 0.27 * height : height * 0.4,
-      padding: EdgeInsets.all(20),
+      height: height >= 812 ? 0.35 * height : height * 0.35,
+      padding: EdgeInsets.all(height * 0.02),
       decoration: BoxDecoration(
-        color: Colors.grey.withValues(alpha: 0.2),
+        color: Colors.black.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -29,8 +34,9 @@ class HomeScreen extends StatelessWidget {
               "Planet of the day",
               textAlign: TextAlign.start,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w900,
                 fontSize: 16,
+                fontFamily: 'Roboto',
                 color: Colors.white,
               ),
             ),
@@ -40,41 +46,70 @@ class HomeScreen extends StatelessWidget {
             children: [
               Image.asset("images/planet.png", fit: BoxFit.cover),
               SizedBox(width: 25),
-              Column(
-                children: [
-                  SizedBox(
-                    width: 200,
-
-                    child: Text(
-                      "Mars",
-                      softWrap: true,
-                      overflow: TextOverflow.visible,
-                      style: TextStyle(
-                        color: Colors.lightBlueAccent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+              SingleChildScrollView(
+                scrollDirection:Axis.vertical,
+                child: Column(
+                  children: [
+                  
+                    SizedBox(
+                      width: 200,
+                
+                      child: Text(
+                        "Mars",
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontWeight: FontWeight.w900,
+                          fontFamily: 'fantasy',
+                          fontSize: 16,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  SizedBox(
-                    width: 180,
-                    height: 150,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Text(
-                        style: TextStyle(
-                          overflow: TextOverflow.visible,
-                          color: Colors.white,
+                    SizedBox(height: 10),
+                    SizedBox(
+                      width: 190,
+                      height: 130,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Text(
+                          style: TextStyle(
+                            overflow: TextOverflow.visible,
+                            color: Colors.white,
+                          ),
+                          softWrap: true,
+                          "Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System, only being larger than Mercury. In the English language, Mars is named for the Roman god of war.Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System, only being larger than Mercury. In the English language, Mars is named for the Roman god of war.",
                         ),
-                        softWrap: true,
-                        "Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System, only being larger than Mercury. In the English language, Mars is named for the Roman god of war.Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System, only being larger than Mercury. In the English language, Mars is named for the Roman god of war.",
                       ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "details",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => {},
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.lightBlueAccent,
                     ),
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ],
       ),
@@ -98,15 +133,18 @@ class HomeScreen extends StatelessWidget {
 
     List<Planet> pdetails = [
       Planet(
-        imagePath: "images/mars.png",
+        planetName: "Mars",
+        imagePath: "images/planet.png",
         imageContent: "Mars is the fourth planet from the Sun.",
       ),
       Planet(
-        imagePath: "images/earth.png",
+        imagePath: "images/planet.png",
+        planetName: "Earth",
         imageContent: "Earth is our home planet.",
       ),
       Planet(
-        imagePath: "images/jupiter.png",
+        planetName: "Jupiter",
+        imagePath: "images/planet.png",
         imageContent: "Jupiter is the largest planet in the Solar System.",
       ),
     ];
@@ -119,6 +157,16 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
+        // bottomNavigationBar:BottomNavigationBar(
+        //   items:[
+        //     BottomNavigationBarItem(
+        //       icon:IconButton(
+        //         onPressed:(){},
+        //         icon:Icon(Icons.web)
+        //       ),
+        //     ),
+        //   ]
+        // ),
         drawer: Drawer(child: Text('My drawer')),
         backgroundColor: Colors.transparent,
 
@@ -197,7 +245,9 @@ class HomeScreen extends StatelessWidget {
                   border: Border.all(width: 3, color: Colors.black),
                 ),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   icon: Icon(Icons.person, color: Colors.white),
                 ),
               ),
@@ -206,7 +256,7 @@ class HomeScreen extends StatelessWidget {
         ),
 
         body: Container(
-          height: double.infinity,
+          //height: double.infinity,
           width: double.infinity,
           color: const Color.fromRGBO(
             0,
@@ -260,21 +310,61 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: pdetails.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8,vertical:12 ),
-                      child: card(
-                        pdetails[index].imagePath,
-                        pdetails[index].imageContent,
-                        context,
-                      ),
-                    );
-                  },
+              SizedBox(
+                height: height * 0.38,
+                child: Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: pdetails.length,
+                    itemBuilder: (context, index) {
+                      return Row(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 8,
+                            ),
+                            child: card(pdetails[index], context),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
+              // Container(
+              //   width: width,
+              //   height: height * 0.38,
+              //   padding:EdgeInsets.symmetric(horizontal: 20,vertical:15),
+              //   margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              //   decoration: BoxDecoration(
+              //     color: Colors.black.withValues(alpha: 0.5),
+              //     borderRadius: BorderRadius.all(Radius.circular(16)),
+              //   ),
+              //   child:SingleChildScrollView(
+              //     child: Column(
+              //       crossAxisAlignment:CrossAxisAlignment.start,
+              //       children:[
+              //         Text(
+              //           "Solar System",
+              //           style:TextStyle(
+              //             color:Colors.white,
+              //             fontWeight:FontWeight.bold,
+              //             fontSize:18
+              //           ),
+              //         ),
+              //         Text("The Solar System is the gravitationally bound system of the Sun and the objects that orbit it. It formed 4.6 billion years ago from the gravitational collapse of a giant interstellar molecular cloud. The vast majority (99.86%) of the system's mass is in the Sun, with most of the remaining mass contained in the planet Jupiter. The four inner system planets—Mercury, Venus, Earth and Mars—are terrestrial planets, being composed primarily of rock and metal. The four giant planets of the outer system are substantially larger and more massive than the terrestrials. ",
+              //         style:TextStyle(
+              //           color:Colors.white70,
+              //           fontWeight:FontWeight.normal,
+              //           fontFamily:'new times roman',
+              //           fontSize:14,
+              //           wordSpacing:2
+              //         ))
+              //       ]
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
