@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myfirstapp/screens/detailscreen/detailscreen.dart';
 
 class Planet {
   final String imagePath;
@@ -36,7 +37,7 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 16,
-                fontFamily: 'Roboto',
+                //fontFamily: 'Roboto',
                 color: Colors.white,
               ),
             ),
@@ -101,7 +102,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.push(context,MaterialPageRoute(builder:(context)=>DetailScreen()))
+                    },
                     icon: Icon(
                       Icons.arrow_forward,
                       color: Colors.lightBlueAccent,
