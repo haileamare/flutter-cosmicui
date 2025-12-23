@@ -20,9 +20,12 @@ class _DetailScreenState extends State<DetailScreen> {
           _firstChildKey.currentContext?.findRenderObject() as RenderBox?;
 
       if (box != null) {
+          var offeset=box.localToGlobal(Offset.zero);
+          var top=offeset.dy;
         setState(() {
-          _firstChildHeight = box.size.height / 2;
+          _firstChildHeight = box.size.height / 2 +top;
         });
+        debugPrint('top:${_firstChildHeight}');
       }
     });
   }
@@ -43,6 +46,8 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    final imageTop=height *0.01;
+    final imageHeight=height *0.25;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -113,11 +118,12 @@ class _DetailScreenState extends State<DetailScreen> {
           alignment: Alignment.center,
           children: [
             Positioned(
-              top: 90,
+              top:height *0.01,
               left: 20,
               right: 20,
               child: Image.asset(
                 'logo/planet4x.png',
+                key:_firstChildKey,
                 width: 500,
                 height: 250,
                 scale: 0.2,
@@ -125,12 +131,12 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
 
             Positioned(
-              top: _firstChildHeight / 2 + 125 + 90,
+              top: imageHeight/2+imageTop+30,
               left: 0,
               right: 0,
               bottom: 0,
               child: Container(
-                padding: EdgeInsets.only(top: 70),
+                padding: EdgeInsets.only(top: 30),
                 decoration: BoxDecoration(
                   color: Color.fromARGB(150, 0, 0, 0),
                   borderRadius: BorderRadius.only(
@@ -158,7 +164,8 @@ class _DetailScreenState extends State<DetailScreen> {
                     
                        Expanded(
                          child: Container(
-                          color: Colors.lightBlue,
+                          alignment:Alignment.center,
+                          color: Colors.transparent,
                           padding: EdgeInsets.symmetric(
                             vertical: 10,
                             horizontal: 20,
@@ -171,7 +178,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                   //mainAxisExtent: 200,
                                   crossAxisCount: 3,
-                                  childAspectRatio: 3 / 4,
+                                  childAspectRatio: width <=385 ?2/ 3:4/5,
                                   mainAxisSpacing: 1,
                                   crossAxisSpacing: 10,
                                 ),
@@ -192,13 +199,18 @@ class _DetailScreenState extends State<DetailScreen> {
                                Colors.blue
                             ],
                             end:Alignment.center,
-                            begin:Alignment.topLeft
+                            begin:Alignment.topLeft,
+                            
                           ),
+                          borderRadius:BorderRadius.all(Radius.elliptical(26,30))
                         ),
-                        height:height*0.09,
+                        height:height*0.07,
                         width:width*0.3,
                         child:MaterialButton(
-                          onPressed:()=>{print("visit Button pressed")}
+                          onPressed:()=>{print("visit Button pressed")},
+                          child:Text("Visit",
+                          style:TextStyle(fontSize: 18,fontWeight:FontWeight.bold,
+                          color:Colors.white))
                         ),
                       ),
                     //SizedBox(height:100)
