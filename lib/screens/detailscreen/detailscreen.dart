@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/main.dart';
 import 'package:myfirstapp/widgets/buttonwidget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
@@ -30,13 +31,52 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
-  Widget Boxes(double width, double height) {
+  Widget Boxes(double width, double height, IconData icon) {
     return Container(
       height: height,
       width: width,
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(color: Color.fromARGB(200, 0, 0, 0)),
-      child: Column(children:[
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:[
+        Container(
+          child:Icon(
+           icon,
+            color:Colors.white,
+            size:40)
+        ),
+         RichText(
 
+          text: TextSpan(
+            text:"Mass",
+            style:TextStyle(color:Colors.white)
+          ),
+         ),
+         RichText(
+          text: TextSpan(
+            children:[
+             TextSpan(text:"( 10",style:TextStyle(color:Colors.white)),
+             WidgetSpan(
+              child:Transform.translate(
+                offset:Offset(0,-5),
+                child:Text("24",
+                style: TextStyle(color:Colors.white),)
+              )
+             ),
+             TextSpan(text:"Kg )",style: TextStyle(color:Colors.white))
+            ]
+          ),
+         ),
+         Text(
+          "5.98",
+          style:TextStyle(
+            color:Colors.white,
+            fontSize: 25,
+            fontWeight:FontWeight.bold
+          )
+         )
       ]
     ),
     );
@@ -46,6 +86,14 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+
+    final icons =[
+      FontAwesomeIcons.personBooth,
+      FontAwesomeIcons.magnet,
+      FontAwesomeIcons.sun,
+      FontAwesomeIcons.rocket,
+      FontAwesomeIcons.thermometer,
+      FontAwesomeIcons.sunPlantWilt];
     final imageTop=height *0.01;
     final imageHeight=height *0.25;
     return Container(
@@ -178,13 +226,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                   //mainAxisExtent: 200,
                                   crossAxisCount: 3,
-                                  childAspectRatio: width <=385 ?2/ 3:4/5,
-                                  mainAxisSpacing: 1,
-                                  crossAxisSpacing: 10,
+                                  childAspectRatio: width <=385 ?2/ 3:8/9,
+                                  mainAxisSpacing: 0,
+                                  crossAxisSpacing: 0,
                                 ),
                             itemCount: 6,
                             itemBuilder: (_, i) =>
-                                Boxes(width * 0.5, height * 0.5),
+                                Boxes(width * 0.5, height * 0.5,icons[i]),
                           ),
                                                
                                              ),
