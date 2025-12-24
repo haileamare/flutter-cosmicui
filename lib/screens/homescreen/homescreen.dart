@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/screens/detailscreen/detailscreen.dart';
+import 'package:myfirstapp/screens/favorites/favorites.dart';
 
 class Planet {
   final String imagePath;
@@ -182,7 +183,12 @@ class HomeScreen extends StatelessWidget {
               BottomNavigationBarItem(
                 label: "Favorites",
                 icon:IconButton(
-                  onPressed:(){},
+                  onPressed:(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder:(context)=>Favorites())
+                    );
+                  },
                   icon:Icon(Icons.favorite,color:Colors.white),
                 
                 ),
