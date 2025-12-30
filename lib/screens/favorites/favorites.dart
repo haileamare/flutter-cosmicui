@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:myfirstapp/screens/profilescreen/profile.dart';
 
-class Favorites extends StatelessWidget {
-  const Favorites({super.key});
+class Favorites extends StatefulWidget{
+  final int SelectedIndex;
+  const Favorites({super.key,required this.SelectedIndex});
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _FavoriteWidgetState();
+  }
+  
+}
+class _FavoriteWidgetState extends State<Favorites> {
+ int _selectedIndex=0;
 
+void init(){
+  setState((){
+    _selectedIndex=widget.SelectedIndex;
+  });
+}
+void setIndex(int index){
+  setState(() {
+    _selectedIndex=index;
+  });
+}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,13 +36,18 @@ class Favorites extends StatelessWidget {
       child: Scaffold(
         backgroundColor:Colors.transparent,
         bottomNavigationBar:BottomNavigationBar(
+          backgroundColor: Colors.black,
+          selectedItemColor:Colors.amber,
+          unselectedItemColor: Colors.white,
+          currentIndex: _selectedIndex,
+          onTap: setIndex,
           items:[
             BottomNavigationBarItem(
-              icon:Icon(Icons.home),
+              icon:Icon(Icons.home,color:Colors.white),
               label:"Home"
             ),
             BottomNavigationBarItem(
-              icon:Icon(Icons.favorite),
+              icon:Icon(Icons.favorite,color:Colors.white),
               label:"Favorite"
             )
           ]
@@ -82,7 +108,10 @@ class Favorites extends StatelessWidget {
                     Icons.person,
                     color:Colors.white
                     ), 
-                  onPressed: () {}),
+                  onPressed: () { 
+                    Navigator.push(context,MaterialPageRoute(builder:(context)=>Profile()));
+                  }
+                  )
               ),
             ],
           ),

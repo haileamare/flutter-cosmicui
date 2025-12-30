@@ -1,0 +1,12 @@
+[33mb2d3d16[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: pull: Fast-forward
+[33m5727529[m HEAD@{1}: commit: refactoring
+[33mc6e1ecb[m HEAD@{2}: pull origin main: Fast-forward
+[33m8bcf9a9[m HEAD@{3}: commit: homescreen ui finished
+[33mdafbca3[m HEAD@{4}: pull: Fast-forward
+[33ma6ef131[m HEAD@{5}: commit: homescreen widget class and its supportive components
+[33mf022400[m HEAD@{6}: pull origin main: Fast-forward
+[33m209ace1[m HEAD@{7}: Branch: renamed refs/heads/main to refs/heads/main
+[33m209ace1[m HEAD@{9}: Branch: renamed refs/heads/main to refs/heads/main
+[33m209ace1[m HEAD@{11}: Branch: renamed refs/heads/main to refs/heads/main
+[33m209ace1[m HEAD@{13}: Branch: renamed refs/heads/master to refs/heads/main
+[33m209ace1[m HEAD@{15}: commit (initial): initial commit

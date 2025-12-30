@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/main.dart';
-import 'package:myfirstapp/screens/favorites/favorites.dart';
 import 'package:myfirstapp/widgets/buttonwidget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,8 +10,7 @@ class DetailScreen extends StatefulWidget {
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
-class Detail{
-
+class BoxVals {
   final IconData? icon;
   final String? title;
   final String? base;
@@ -23,7 +20,16 @@ class Detail{
   final double x;
   final double y;
 
-  const Detail({required this.x, required this.y,this.icon,this.title,this.base,this.pow,this.unit,required this.val});
+  const BoxVals({
+    this.icon,
+     this.title,
+     this.base,
+     this.pow,
+     this.unit,
+    required this.val,
+    required this.x,
+    required this.y
+  });
 }
 class _DetailScreenState extends State<DetailScreen> {
   final GlobalKey _firstChildKey = GlobalKey();
@@ -46,145 +52,124 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
-
-  Widget Boxes(double width, double height, Detail detail) {
-  return Container(
-    height: height,
-    width: width,
-    padding: const EdgeInsets.all(8),
-    decoration: const BoxDecoration(
-      color: Color.fromARGB(0, 0, 0, 0),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          detail.icon ?? Icons.error,
-          color: Colors.white,
-          size: 40,
+  Widget Boxes(double width, double height,  BoxVals boxv) {
+    return Container(
+      height: height,
+      width: width,
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(color: Color.fromARGB(200, 0, 0, 0)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:[
+        Container(
+          child:Icon(
+           boxv.icon,
+            color:Colors.white,
+            size:40)
         ),
+         RichText(
 
-        RichText(
           text: TextSpan(
-            text: detail.title ?? "",
-            style: const TextStyle(color: Colors.white),
+            text:boxv.title,
+            style:TextStyle(color:Colors.white)
           ),
-        ),
-
-        RichText(
+         ),
+         RichText(
           text: TextSpan(
-            children: [
-               TextSpan(
-               text: "${detail.base ?? ""}",
-                style: TextStyle(color: Colors.white),
-              ),
-
-              if (detail.pow != null && detail.pow!.isNotEmpty)
-                WidgetSpan(
-                  child: Transform.translate(
-                    offset:  Offset(detail.x, detail.y),
-                    child: Text(
-                      detail.pow!,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-
-              TextSpan(
-                
-                text: " ${detail.unit ?? ""}",
-                style: const TextStyle(color: Colors.white),
-              ),
-            ],
-          
+            children:[
+             TextSpan(text:boxv.base,style:TextStyle(color:Colors.white)),
+             WidgetSpan(
+              child:Transform.translate(
+                offset:Offset(boxv.x,boxv.y),
+                child:Text(boxv?.pow??"",
+                style: TextStyle(color:Colors.white),)
+              )
+             ),
+             TextSpan(text:boxv?.unit??"",style: TextStyle(color:Colors.white))
+            ]
           ),
-           softWrap: true,             // ✅ allow wrapping
-  overflow: TextOverflow.visible, // 
-        ),
-
-        Text(
-          detail.val?.toString() ?? "",
-          style: const TextStyle(
-            color: Colors.white,
+         ),
+         Text(
+          boxv.val.toString(),
+          style:TextStyle(
+            color:Colors.white,
             fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
+            fontWeight:FontWeight.bold
+          )
+         )
+      ]
     ),
-  );
-}
-
-
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-   
+
     final icons =[
-      
-     new Detail( 
-        icon:FontAwesomeIcons.personBooth,
-        title:"Mass",
-        base: "( 10",
-        pow:"24",
-        unit:"Kg )",
-        val:5.94,
-        x:0,
-        y:-8
+     new BoxVals  (
+     icon: FontAwesomeIcons.personBooth,
+     title:"Mass",
+     base:"( 10",
+      pow:"24",
+     unit: "Kg )",
+      val: 5.97,
+      x:0,
+      y:-5
      ),
-    new Detail(
+     new BoxVals  (
       icon:FontAwesomeIcons.magnet,
       title:"Gravity",
       base:"( ",
       pow:null,
       unit:"m/s2 )",
-      val:9.98,
+      val:9.8,
       x:0,
       y:0
-    ),
-      new Detail(
-        icon:FontAwesomeIcons.sun,
-        title: "Day",
-        base:"( ",
-        pow:null,
-        unit:"hours )",
-        val:24,
-        x:0,
-        y:0
-      ),
-      new Detail(
-       icon: FontAwesomeIcons.rocket,
-        title:"Esc. Velocity",
-        base:"( ",
-        pow:null,
-        unit:"Km/s )",
-        val:11.2,
-        x:0,
-        y:0
-      ),
-     new Detail(
-      icon:FontAwesomeIcons.thermometer,
-      title:"Temp",
-      pow:"o",
-      base:"( C",
-      unit:")",
-      val:15,
-      x:-14,
-      y:-15
      ),
-      new Detail(
-       icon: FontAwesomeIcons.sunPlantWilt,
-        title:"Distance from",
-        pow:"",
-        base:"sun( 106",
-        unit:"Km )",
-        val:55,
-        x:0,
-        y:0
-      )
-      ];
+      new BoxVals  (
+      icon:FontAwesomeIcons.sun,
+      title: "Day",
+      base:"( ",
+      pow:null,
+      unit:"hours )",
+      val:24,
+      x:0,
+      y:0
+      ),
+    new BoxVals  (
+       icon:  FontAwesomeIcons.rocket,
+       title:  "Esc. Velocity",
+       base:  "( ",
+       pow:  null,
+       unit:  "Km/s )",
+       val:  11.2,
+       x:0,
+       y:0
+    ),
+     new BoxVals  (
+        icon:FontAwesomeIcons.thermometer,
+        title:"Mean Temp",
+        base:"( C",
+         pow:"o",
+        unit:" )",
+        val:15,
+        x:-14,
+        y:-10
+        ),
+     new BoxVals  (
+       icon:FontAwesomeIcons.sunPlantWilt,
+       title: "Distance from",
+       base:"Sun (106",
+       pow:null,
+       unit:" Km)",
+       val:5.99,
+       x:0,
+       y:0
+     )
+     ];
     final imageTop=height *0.01;
     final imageHeight=height *0.25;
     return Container(
@@ -246,12 +231,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     color: Colors.white,
                     size: 25,
                   ),
-                  onPressed: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder:(context)=>Favorites())
-                  )
-                  },
+                  onPressed: () => {},
                 ),
               ),
             ],

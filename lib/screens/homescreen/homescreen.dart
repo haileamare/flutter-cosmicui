@@ -186,7 +186,7 @@ class HomeScreen extends StatelessWidget {
                   onPressed:(){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder:(context)=>Favorites())
+                      MaterialPageRoute(builder:(context)=>Favorites(SelectedIndex: 0,))
                     );
                   },
                   icon:Icon(Icons.favorite,color:Colors.white),
